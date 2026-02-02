@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import Hero from './components/hero';
 import Features from './components/features';
 import Navigation from './components/navigation';
@@ -7,13 +9,10 @@ import Pricing from './components/pricing';
 import Footer from './components/footer';
 import IntroScreen from './components/intro-screen';
 
-export default function App() {
-  const [showIntro, setShowIntro] = useState(true);
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 
-  if (showIntro) {
-    return <IntroScreen onComplete={() => setShowIntro(false)} />;
-  }
-
+function Home() {
   return (
     <div className="min-h-screen bg-black text-white">
       <Navigation />
@@ -23,5 +22,23 @@ export default function App() {
       <Pricing />
       <Footer />
     </div>
+  );
+}
+
+export default function App() {
+  const [showIntro, setShowIntro] = useState(true);
+
+  if (showIntro) {
+    return <IntroScreen onComplete={() => setShowIntro(false)} />;
+  }
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

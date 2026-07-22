@@ -30,6 +30,7 @@ import {
   Zap,
 } from "lucide-react";
 import "./styles.css";
+import { PrivacyPolicy, TermsOfService } from "./legal";
 const M = motion,
   reveal = {
     initial: { opacity: 0, y: 30 },
@@ -1276,8 +1277,8 @@ function Footer() {
           </div>
           <div>
             <b>Legal</b>
-            <a>Privacy</a>
-            <a>Terms</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
             <a>Guidelines</a>
           </div>
           <div>
@@ -1301,7 +1302,7 @@ function Footer() {
     </footer>
   );
 }
-function App() {
+function LandingPage() {
   return (
     <>
       <Nav />
@@ -1315,5 +1316,11 @@ function App() {
       <Footer />
     </>
   );
+}
+function App() {
+  const path = window.location.pathname.replace(/\/+$/, "") || "/";
+  if (path === "/privacy-policy") return <PrivacyPolicy />;
+  if (path === "/terms") return <TermsOfService />;
+  return <LandingPage />;
 }
 createRoot(document.getElementById("root")).render(<App />);
